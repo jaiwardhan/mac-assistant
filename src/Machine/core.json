@@ -1,0 +1,9 @@
+{
+	"commands":
+	{
+		"open": "./utils/installedApps.py"
+	},
+	"things":{
+		"nothing":1
+	}
+}
