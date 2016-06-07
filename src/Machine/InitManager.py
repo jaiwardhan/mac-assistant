@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 from BaseMachine import BaseMachine
 from collections import defaultdict
-import speech_recognition as sr
-import os
+from openManager import OpenManager
+from closeManager import CloseManager
 
-
-class InitManger(BaseMachine):
-    def __init__(self):
-        BaseMachine.__init__(self)
+class InitManger:
+    base_handler = BaseMachine()
+    open_manager = OpenManager()
+    close_manager = CloseManager()
 
     commands = {"open"}  # this will define the states
     states = {
-        "open": BaseMachine.open_manager.open_with_command
+        "open": open_manager.open_with_command
 
     }
     states = defaultdict(lambda: BaseMachine.error_handler.error_respond, states)
@@ -38,7 +38,7 @@ class InitManger(BaseMachine):
                 i += 1
         else:
             # empty input, possibly time wait overflow in listen, hence 0 words
-            BaseMachine.exit_code = str(BaseMachine.ERR_COMM_UNDERFLOW)+"OOO"+str(BaseMachine.ERR_COMM_UNDERFLOW)
+            self.base_handler.exit_code = str(self.base_handler.ERR_COMM_UNDERFLOW)+"OOO"+str(self.base_handler.ERR_COMM_UNDERFLOW)
 
         # TODO debug
         print(BaseMachine.exit_code)
@@ -48,24 +48,25 @@ class InitManger(BaseMachine):
     we will switch to other states
     '''
     def start_machine(self):
-        next_state, residue_command = BaseMachine.exit_code.split('OOO')
+        next_state, residue_command = self.base_handler.exit_code.split('OOO')
         print "DEBUG: the next state is: "+next_state
         # residue_command = BaseMachine.exit_code.split('OOO')[1]
         print "DEBUG: the residue command is: "+residue_command
 
         # check if the residue is an error, handle response accordingly
+        print "the type of next state is "+self.states[next_state].__module__
         if not self.states[next_state].__module__ == "ErrorManager":
             # normal response
             print "hello"
-            BaseMachine.response_manager.respond_world("executing command "+residue_command)
-        self.states[next_state](residue_command)
+            self.base_handler.response_handler.respond_world("executing command "+residue_command)
+        self.states[next_state](residue_command, self.base_handler)
 
-'''
+#'''
 o = InitManger()
-o.process_tokens("open intellij in the background")
-print "DEBUG: (prog run - exit code is): "+o.exit_code
+o.process_tokens("can you please open itunes in the finder")
+print "DEBUG: (prog run - exit code is): "+o.base_handler.exit_code
 o.start_machine()
-'''
+#'''
 
 '''
 r=sr.Recognizer()

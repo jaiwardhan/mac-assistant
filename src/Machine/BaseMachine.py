@@ -1,11 +1,15 @@
-from openManager import OpenManager
+from execManager import ExecManager
 from ErrorManager import ErrorManager
 from ResponseManager import ResponseManager
+from utils.InstalledApps import InstalledApps
 
 class BaseMachine:
-    open_manager = OpenManager()
+    exec_handler = ExecManager()
     error_handler = ErrorManager()
-    response_manager = ResponseManager()
+    response_handler = ResponseManager()
+
+    apps_installed = None
+
     ERR_COMM_UNDERFLOW = -1
     ERR_COMM_OVERFLOW = -2
     ERR_COMM_ILLEGAL = -3
@@ -16,4 +20,5 @@ class BaseMachine:
     def __init__(self):
         # init all super
         print "init all super"
+        self.apps_installed = (InstalledApps()).getInstalledApps()
 

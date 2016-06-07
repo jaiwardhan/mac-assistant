@@ -1,9 +1,7 @@
-# from BaseMachine import BaseMachine
-from ResponseManager import ResponseManager
+class ErrorManager:
 
-class ErrorManager():
+    def __init__(self):
+        print "DEBUG_INIT: Initialized error manager"
 
-    response_manager = ResponseManager()
-    def error_respond(self, error):
-        print self.__module__
-        self.response_manager.respond_world("Sorry. That was an error")
+    def error_respond(self, error, base_handler):
+        base_handler.response_handler.respond_world("Sorry. That was an error")
