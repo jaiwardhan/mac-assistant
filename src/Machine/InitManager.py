@@ -66,6 +66,8 @@ o.process_tokens("open intellij in the background")
 print "DEBUG: (prog run - exit code is): "+o.exit_code
 o.start_machine()
 '''
+
+'''
 r=sr.Recognizer()
 with sr.Microphone() as source:
     r.adjust_for_ambient_noise(source)
@@ -75,7 +77,8 @@ print("processing\n")
 rv=r.recognize_google(audio)
 print rv
 os.system('Say -v Samantha -r 210 '+"Hello sir")
-#'''
+'''
+
 
 
 

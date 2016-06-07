@@ -1,5 +1,6 @@
 from utils.InstalledApps import InstalledApps
 from execManager import ExecManager
+from ResponseManager import ResponseManager
 import os
 
 
@@ -85,6 +86,7 @@ class OpenManager:
         '''
         now attach the program if found to the output command if the said program if available
         '''
+        # TODO: We can optimize this search later
         for eachInstalledApp in self.apps_installed:
             # print "here filtCom is " + filtered_command[0] + " and checking in " + eachInstalledApp.lower()
             if program[0].lower() in eachInstalledApp.lower():
@@ -97,8 +99,12 @@ class OpenManager:
         attach options given by the user to the command
         '''
         if is_an_installed_app:
+            print "DEBUG: OpenManager: this app installed"
             for option in options:
                 open_command += self.open_options[option]
-
-        # now send it to execution
-        self.exec_manager.exec_command(open_command)
+                # now send it to execution
+            self.exec_manager.exec_command(open_command)
+        else:
+            print "DEBUG: OpenManager: this app is not installed"
+            response_manager = ResponseManager()
+            response_manager.respond_world("No such program is installed")
