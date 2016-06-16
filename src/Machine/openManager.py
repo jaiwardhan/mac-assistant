@@ -1,6 +1,6 @@
 
 class OpenManager:
-    # filters and constants
+    # open filters and constants
     filterRef = ["up", "the", "in", "for", "me", "please", "copy", "instance", "a", "of"]
     open_options = {
         "fresh": " --fresh",
@@ -17,9 +17,9 @@ class OpenManager:
         print "DEBUG_INIT: initalized open manager"
 
     '''
-    module to filter out general grammer words
+    module to filter out general grammar words
     with the open command and retain all the
-    possible arguments tp be given
+    possible arguments to be given
     '''
     def filter_command(self, command):
         key = []

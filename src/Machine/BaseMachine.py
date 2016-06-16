@@ -9,6 +9,8 @@ class BaseMachine:
     response_handler = ResponseManager()
 
     apps_installed = None
+    running_apps = None
+    running_apps_path = None
 
     ERR_COMM_UNDERFLOW = -1
     ERR_COMM_OVERFLOW = -2
@@ -20,5 +22,5 @@ class BaseMachine:
     def __init__(self):
         # init all super
         print "init all super"
-        self.apps_installed = (InstalledApps()).getInstalledApps()
+        self.apps_installed = (InstalledApps()).get_installed_apps()
 

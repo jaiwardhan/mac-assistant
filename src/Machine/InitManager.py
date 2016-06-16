@@ -9,9 +9,10 @@ class InitManger:
     open_manager = OpenManager()
     close_manager = CloseManager()
 
-    commands = {"open"}  # this will define the states
+    commands = {"open", "close"}  # this will define the states
     states = {
-        "open": open_manager.open_with_command
+        "open": open_manager.open_with_command,
+        "close": close_manager.close_running_application
 
     }
     states = defaultdict(lambda: BaseMachine.error_handler.error_respond, states)
@@ -61,12 +62,12 @@ class InitManger:
             self.base_handler.response_handler.respond_world("executing command "+residue_command)
         self.states[next_state](residue_command, self.base_handler)
 
-#'''
+'''
 o = InitManger()
-o.process_tokens("can you please open itunes in the finder")
+o.process_tokens("can you please close idea")
 print "DEBUG: (prog run - exit code is): "+o.base_handler.exit_code
 o.start_machine()
-#'''
+'''
 
 '''
 r=sr.Recognizer()
@@ -74,7 +75,7 @@ with sr.Microphone() as source:
     r.adjust_for_ambient_noise(source)
     print("Say something!")
     audio = r.listen(source)
-print("processing\n")
+print("processing")
 rv=r.recognize_google(audio)
 print rv
 os.system('Say -v Samantha -r 210 '+"Hello sir")
