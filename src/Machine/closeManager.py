@@ -1,8 +1,5 @@
+# @author: Jaiwardhan Swarnakar
 from utils.RunningApps import RunningApps
-import operator
-from BaseMachine import BaseMachine
-import subprocess
-
 
 class CloseManager:
 
@@ -12,48 +9,6 @@ class CloseManager:
     def __init__(self):
         print "DEBUG_INIT: Initialized CloseManager"
 
-    '''
-    module to check if a program is running or not
-
-    def if_this_program_is_runinng(self, program_name, base_handler):
-        hash_map = {}
-
-        # split the name of the program into possible parts which the user can give
-        program_tokens = program_name.split(" ")
-
-        # search by each token from the program name passed
-        for program_token in program_tokens:
-            # check it in all installed apps
-            for each_installed_app in base_handler.apps_installed:
-                # remove the redundant path and '.app' prefixes and suffixes
-                # and split it coz installed app maybe multiple words long
-                installed_app_prefix = each_installed_app.split('/')[-1].split(".app")[0].split(" ")
-                for each_installed_app_prefix in installed_app_prefix:
-                    # print "DEBUG---> each installed app is "+each_installed_app_prefix
-                    if program_token.lower() in each_installed_app_prefix.lower():
-                        print "the app is "+each_installed_app
-                        # put this is hash map
-                        p = subprocess.Popen(['pgrep', '-i', each_installed_app_prefix], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                        process_id_list, err = p.communicate()
-                        # out will be a list of PIDs with \n
-                        print process_id_list
-                        # split this by \n
-                        process_id_list = process_id_list.split('\n')
-                        for process_id in process_id_list:
-                            if not process_id == '':
-                                if each_installed_app_prefix not in hash_map.keys():
-                                    hash_map[each_installed_app_prefix] = 1
-                                else:
-                                    hash_map[each_installed_app_prefix] = hash_map[each_installed_app_prefix] + 1
-        # sort this dictionary by the most occuring application on the top
-        if len(hash_map) > 0:
-            most_occured_app = sorted(hash_map.keys(), key=operator.itemgetter(1), reverse=True)[0]
-            print "the found pids are"
-            print most_occured_app
-            return most_occured_app
-        else:
-            return None
-     '''
     def close_running_application(self, close_command, base_handler):
         # running_app = self.if_this_program_is_runinng(program_name,base_handler)
 
@@ -82,13 +37,6 @@ class CloseManager:
 
         else :
             base_handler.response_handler.respond_world("Sorry sir, this application is not running")
-        '''
-        if not running_app is None:
-            # found a running app with this name
-            closing_command = "osascript -e \'quit app \""+running_app+"\"\'"
-            # os.system('osascript -e \'quit app \"IntelliJ Idea\"\'')
-            print closing_command
-        '''
 
     '''
     Helper module to update the apps currently running

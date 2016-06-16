@@ -1,4 +1,4 @@
-
+# @author: Jaiwardhan Swarnakar
 class OpenManager:
     # open filters and constants
     filterRef = ["up", "the", "in", "for", "me", "please", "copy", "instance", "a", "of"]

@@ -1,3 +1,4 @@
+# @author: Jaiwardhan Swarnakar
 from Machine import InitManager
 import speech_recognition
 import os
