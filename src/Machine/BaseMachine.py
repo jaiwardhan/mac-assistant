@@ -3,11 +3,14 @@ from execManager import ExecManager
 from ErrorManager import ErrorManager
 from ResponseManager import ResponseManager
 from utils.InstalledApps import InstalledApps
+from utils.CurrentActiveAppWindow import CurrentActiveAppWindow
+
 
 class BaseMachine:
     exec_handler = ExecManager()
     error_handler = ErrorManager()
     response_handler = ResponseManager()
+    current_active_window = CurrentActiveAppWindow()
 
     apps_installed = None
     running_apps = None

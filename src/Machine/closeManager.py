@@ -4,7 +4,7 @@ from utils.RunningApps import RunningApps
 class CloseManager:
 
     # open filters and constants
-    filterRef = ["up", "the", "in", "for", "me", "please", "copy", "instance", "a", "of"]
+    filterRef = ["up", "the", "in", "for", "me", "please", "copy", "instance", "a", "of", "alright", "window"]
 
     def __init__(self):
         print "DEBUG_INIT: Initialized CloseManager"
@@ -15,20 +15,28 @@ class CloseManager:
         # Update the list of currently running programs
         self.update_list_of_running_programs(base_handler)
 
+        # close system call command
+        close_system_call_command = ''
+        close_command
         # filter input command
         close_command = self.filter_command(close_command)
 
-        # close system call command
-        close_system_call_command = ''
+        # add `this` functionality
+        if "this" in close_command:
+            close_command = "this"
 
-        # find the program that is referred here in the
-        # list of running programs
-        for each_installed_app in base_handler.running_apps:
-            for each_command in close_command:
-                if each_command.lower() in each_installed_app.lower():
-                    # formulate the close command
-                    close_system_call_command = each_installed_app.lower()
-                    break
+        if "this" in close_command:
+            close_system_call_command = base_handler.current_active_window.get_currently_active_appname()
+
+        else:
+            # find the program that is referred here in the
+            # list of running programs
+            for each_installed_app in base_handler.running_apps:
+                for each_command in close_command:
+                    if each_command.lower() in each_installed_app.lower():
+                        # formulate the close command
+                        close_system_call_command = each_installed_app.lower()
+                        break
 
         if close_system_call_command != '':
             base_handler.response_handler.respond_world("Closing "+close_system_call_command)
