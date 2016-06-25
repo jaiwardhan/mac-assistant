@@ -87,12 +87,12 @@ class InitManger:
             self.base_handler.response_handler.respond_world("executing command "+residue_command)
         self.states[next_state](residue_command, self.base_handler)
 
-
+'''
 o = InitManger()
 o.process_tokens("can you please close this in the background")
 print "DEBUG: (prog run - exit code is): "+o.base_handler.exit_code
 o.start_machine()
-
+'''
 
 '''
 r=sr.Recognizer()
