@@ -1,4 +1,10 @@
-# @author: Jaiwardhan Swarnakar
+# =====================================================================
+# Interaction Module.
+# This module is the place where it all begins!
+# @author: Jaiwardhan Swarnakar, 2016
+# =====================================================================
+
+
 from Machine import InitManager
 import speech_recognition
 import os
