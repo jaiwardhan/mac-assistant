@@ -1,8 +1,11 @@
-# Utility to run subprocess commands.
-# Contains modules required to execute
-# list & string commands to subprocess.
+# =====================================================================
+# Utility to run shell commands on the system. Shell commands
+# are run with the help of subprocess module.
+# Able to handle commands in the form of a sting or a list with
+# command arguments.
 # Returns the data obtained
-# @author: Jaiwardhan Swarnakar
+# @author: Jaiwardhan Swarnakar, 2016
+# =====================================================================
 
 import subprocess
 

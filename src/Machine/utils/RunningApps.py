@@ -1,13 +1,17 @@
-# Utility to get the apps and main app path
-# in the form of a list, currently running
-# on the system
-# @author: Jaiwardhan Swarnakar
+# =====================================================================
+# Utility to get the Apps currently running on the system.
+# Systematically returns the Appname and the main executable path
+# of the running application
+# @author: Jaiwardhan Swarnakar, 2016
+# =====================================================================
 
 from SubprocessCall import SubprocessCall
 
 
 class RunningApps:
 
+    # Module to return the apps currently running on the system.
+    # Returns a list of Apps and their paths.
     def currectly_running_apps(self):
 
         subprocess_call = SubprocessCall()
@@ -16,13 +20,15 @@ class RunningApps:
         # get the data in shell False mode
         data = subprocess_call.subprocess_call_getdata(['ps', 'aux'], False)
 
-        # construct the path from the obtained tuple list
+        # data variables
         running_app_path = ''
         running_app = ''
         running_apps = []
         running_apps_path = []
 
+        # construct the path from the obtained tuple list
         for each_tuple in data:
+
             # break the tuple data, and join the split path to
             # reconstruct the application path
             each_tuple = each_tuple.split('/')[1:-1]
