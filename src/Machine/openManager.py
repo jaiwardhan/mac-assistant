@@ -1,7 +1,18 @@
-# @author: Jaiwardhan Swarnakar
+# =====================================================================
+# Manager to open apps that are installed on the system upon request.
+# Can handle options with the program such as find the location in
+# finder or open in the background - with natural language speech.
+# @author: Jaiwardhan Swarnakar, 2016
+# =====================================================================
+
+
 class OpenManager:
-    # open filters and constants
+
+    # General filter: Should be removed.
     filterRef = ["up", "the", "in", "for", "me", "please", "copy", "instance", "a", "of", "alright"]
+
+    # General filter: Adds optional commands if the user asks for it.
+    # TODO: Could be made JSON based.
     open_options = {
         "fresh": " --fresh",
         "new": " --new",
@@ -17,24 +28,24 @@ class OpenManager:
         print "DEBUG_INIT: initalized open manager"
 
     '''
-    module to filter out general grammar words
+    Module to filter out general grammar words
     with the open command and retain all the
-    possible arguments to be given
+    possible arguments to be given.
     '''
     def filter_command(self, command):
         key = []
         command = command.split(" ")
-        for i in command:
+        for command_token in command:
             matched = 0
-            for j in self.filterRef:
-                if i == j:
+            for filter_tokens in self.filterRef:
+                if command_token == filter_tokens:
                     matched += 1
             if matched == 0:
-                key.append(i)
+                key.append(command_token)
         return key
 
     '''
-    module to find a list of additional options
+    Module to find a list of additional options
     given with the command - referred with open
     '''
     def get_open_program_and_options(self, command):
@@ -52,12 +63,15 @@ class OpenManager:
 
     '''
     Module to open a file/App with user command as a parameter
-    - filters the user command to system useable format
+    - filters the user command to system usable format
     '''
     def open_with_command(self, command, base_handler):
+
+        # The final command to be issued
         open_command = ""
         is_an_installed_app = False
-        # filter the command for common phrases
+
+        # filter the command for common linguistic phrases
         filtered_command = self.filter_command(command)
         print "DEBUG: (command filtered, found this): "
         print filtered_command
@@ -69,7 +83,6 @@ class OpenManager:
         '''
         # TODO: We can optimize this search later
         for eachInstalledApp in base_handler.apps_installed:
-            # print "here filtCom is " + filtered_command[0] + " and checking in " + eachInstalledApp.lower()
             if program[0].lower() in eachInstalledApp.lower():
                 # prepare command
                 open_command = "open '" + eachInstalledApp + "'"
@@ -88,4 +101,4 @@ class OpenManager:
             base_handler.exec_handler.exec_command(open_command)
         else:
             print "DEBUG: OpenManager: this app is not installed"
-            base_handler.response_handler.respond_world("No such program is installed")
+            base_handler.response_handler.respond_world("No such program is installed!")
